@@ -1,9 +1,7 @@
-import * as fs from "fs";
-import * as path from "path";
+import { readFile } from "../utils";
 
 const getReadingsFrom = (filename: string): number[] => {
-  const filepath = path.join(__dirname, filename);
-  const data = fs.readFileSync(filepath, { encoding: "utf8" });
+  const data = readFile(filename);
   return data.split("\n").map((s) => parseInt(s, 10));
 };
 
@@ -24,7 +22,7 @@ function slidingWindows(readings: number[]): number[] {
 
 describe("Day 1", () => {
   test("Full Example", () => {
-    const readings = getReadingsFrom("./input.txt");
+    const readings = getReadingsFrom("./day-1/input.txt");
     expect(sonarSweep(readings)).toBe(1665);
   });
 
@@ -44,7 +42,7 @@ describe("Day 1", () => {
   });
 
   test("getReadingsFrom", () => {
-    const readings = getReadingsFrom("./test-input.txt");
+    const readings = getReadingsFrom("./day-1/test-input.txt");
     expect(readings).toStrictEqual([1, 2, 3]);
   });
 
@@ -58,7 +56,7 @@ describe("Day 1", () => {
   });
 
   test("Full Sliding Windows Example", () => {
-    const readings = getReadingsFrom("./input.txt");
+    const readings = getReadingsFrom("./day-1/input.txt");
     const sliding = slidingWindows(readings);
     expect(sonarSweep(sliding)).toBe(1702);
   });
